@@ -4,6 +4,7 @@ import "time"
 
 //BudgetModel: 月の予実(予算・実績)のモデル
 type BudgetModel struct {
+	ID               int64
 	Name             string
 	BudgetValue      uint32
 	PerformanceValue uint32
