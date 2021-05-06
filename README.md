@@ -1,5 +1,4 @@
 HouseholdAccountApp
-
 .
 ├── adapter
 │   ├──
@@ -18,4 +17,5 @@ HouseholdAccountApp
 ├── usecase
 │   ├──
 │   └── 
-└──main.go
+├── main_test.go
+└── main.go
