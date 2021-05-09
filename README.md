@@ -1,5 +1,16 @@
+# 家計簿アプリ
+
+## DB
+Google Spreadsheet
+
+## フロントエンド
+React
+
+## API
+GAE
+golang
+
 HouseholdAccountApp
-.
 ├── adapter
 │   ├──
 │   └── 
