@@ -1,32 +1,8 @@
-# 家計簿アプリ
+# HouseholdAccountApp
 
-## DB
-Google Spreadsheet
+"HouseholdAccountApp" is a household account book application that uses google spreadsheet.
 
-## フロントエンド
-React
-
-## API
-GAE
-golang
-
-HouseholdAccountApp
-├── adapter
-│   ├──
-│   └── 
-├── domain
-│   ├── budget_model.go
-│   ├── budget_repository.go
-│   ├── receipt_model.go
-│   └── receipt_repository.go
-├── interactor
-│   ├──
-│   └── 
-├── registry
-│   ├──
-│   └── 
-├── usecase
-│   ├──
-│   └── 
-├── main_test.go
-└── main.go
+# Requirements
+- Google App Engine (server)
+- Google SpreadSheet (DB)
+- Golang go1.15.6 darwin/amd64
