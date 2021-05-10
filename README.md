@@ -4,5 +4,5 @@
 
 # Requirements
 - Google App Engine (Server)
-    - Golang go1.15.6 darwin/amd64
+    - Golang go1.15
 - Google SpreadSheet (DB)
