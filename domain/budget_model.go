@@ -2,7 +2,7 @@ package domain
 
 import "time"
 
-//BudgetModel: 月の予実(予算・実績)のモデル
+// BudgetModel 月の予実(予算・実績)のモデル
 type BudgetModel struct {
 	ID               int64
 	Name             string

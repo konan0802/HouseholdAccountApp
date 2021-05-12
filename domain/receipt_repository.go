@@ -1,8 +1,8 @@
 package domain
 
-//ReciptRepository: Reciptモデルのリポジトリ
+// ReciptRepository Reciptモデルのリポジトリ
 type ReciptRepository interface {
-	CreateRecipt(newRecipt *ReciptModel) (*ReciptModel, error)
+	AddRecipt(newRecipt *ReciptModel) (*ReciptModel, error)
 	UpdateRecipt(newRecipt *ReciptModel) error
 	GetRecipt(name string) (*ReciptModel, error)
 	DeleteRecipt(name string) error
