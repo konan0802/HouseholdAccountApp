@@ -7,9 +7,10 @@ type ReciptModel struct {
 	ID       int64
 	Name     string
 	Price    uint32
+	Methods  string
 	Datetime time.Time
 }
 
-func NewReciptModel(name string, price uint32, datetime time.Time) *ReciptModel {
-	return &ReciptModel{Name: name, Price: price, Datetime: datetime}
+func NewReciptModel(name string, price uint32, datetime time.Time, methods string) *ReciptModel {
+	return &ReciptModel{Name: name, Price: price, Datetime: datetime, Methods: methods}
 }
