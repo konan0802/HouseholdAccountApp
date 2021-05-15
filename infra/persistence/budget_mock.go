@@ -6,15 +6,15 @@ import (
 	"context"
 )
 
-type budgetPersistence struct{}
+type budgetPersistenceMock struct{}
 
 // NewBudgetPersistence Budgetデータに関するPersistenceを生成
-func NewBudgetPersistence() repository.BudgetRepository {
-	return &budgetPersistence{}
+func NewBudgetPersistenceMock() repository.BudgetRepository {
+	return &budgetPersistenceMock{}
 }
 
 // GetMonthlyBudgets 対象年月の予算を取得する
-func (bp *budgetPersistence) GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error) {
+func (bp *budgetPersistenceMock) GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error) {
 	bm := model.BudgetModel{
 		CategorieID:      0,
 		BudgetValue:      30000,

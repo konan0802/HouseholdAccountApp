@@ -14,7 +14,7 @@ import (
 
 func main() {
 	// 依存関係を注入
-	budgetPersistence := persistence.NewBudgetPersistence()
+	budgetPersistence := persistence.NewBudgetPersistenceMock()
 	budgetUseCase := usecase.NewBudgetUseCase(budgetPersistence)
 	budgetHandler := handler.NewBudgetHandler(budgetUseCase)
 	receiptPersistence := persistence.NewReceiptPersistenceMock()
