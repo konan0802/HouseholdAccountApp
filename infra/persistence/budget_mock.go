@@ -3,6 +3,7 @@ package persistence
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
+	"context"
 )
 
 type budgetPersistence struct{}
@@ -13,7 +14,7 @@ func NewBudgetPersistence() repository.BudgetRepository {
 }
 
 // GetBudget 対象年月の予算を取得する
-func (bp *budgetPersistence) GetBudget(categorieID uint32, year uint16, month uint8) (*model.BudgetModel, error) {
+func (bp *budgetPersistence) GetBudget(ctx context.Context) (*model.BudgetModel, error) {
 	bm := model.BudgetModel{
 		CategorieID:      0,
 		BudgetValue:      30000,

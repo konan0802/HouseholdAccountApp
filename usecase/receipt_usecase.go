@@ -3,10 +3,11 @@ package usecase
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
+	"context"
 )
 
 type ReceiptUseCase interface {
-	GetReceipt(year uint16, month uint8, day uint8) (*model.ReceiptModel, error)
+	GetReceipt(ctx context.Context) (*model.ReceiptModel, error)
 }
 
 type receiptUseCase struct {
@@ -21,9 +22,9 @@ func NewReceiptUseCase(rr repository.ReceiptRepository) ReceiptUseCase {
 }
 
 // GetReceipt Receiptデータを全件取得するためのユースケース
-func (ru receiptUseCase) GetReceipt(year uint16, month uint8, day uint8) (receipt *model.ReceiptModel, err error) {
+func (ru receiptUseCase) GetReceipt(ctx context.Context) (receipt *model.ReceiptModel, err error) {
 	// Persistence（Repository）を呼出
-	receipt, err = ru.receiptRepository.GetReceipt(year, month, day)
+	receipt, err = ru.receiptRepository.GetReceipt(ctx)
 	if err != nil {
 		return nil, err
 	}

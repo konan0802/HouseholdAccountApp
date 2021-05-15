@@ -3,6 +3,7 @@ package persistence
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
+	"context"
 	"time"
 )
 
@@ -14,7 +15,7 @@ func NewReceiptPersistence() repository.ReceiptRepository {
 }
 
 // GetReceipt 対象年月の予算を取得する
-func (bp *receiptPersistence) GetReceipt(year uint16, month uint8, day uint8) (*model.ReceiptModel, error) {
+func (bp *receiptPersistence) GetReceipt(ctx context.Context) (*model.ReceiptModel, error) {
 	rm := model.ReceiptModel{
 		ReceiptID:   1,
 		CategorieID: 0,

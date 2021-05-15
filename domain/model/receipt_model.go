@@ -12,6 +12,6 @@ type ReceiptModel struct {
 	Datetime    time.Time
 }
 
-func NewReceiptModel(name string, price uint32, datetime time.Time, methods string) *ReceiptModel {
-	return &ReceiptModel{Name: name, Price: price, Datetime: datetime, Methods: methods}
+func NewReceiptModel(receiptID uint32, categorieID uint32, price uint32, datetime time.Time, methods string) *ReceiptModel {
+	return &ReceiptModel{ReceiptID: receiptID, CategorieID: categorieID, Price: price, Datetime: datetime, Methods: methods}
 }

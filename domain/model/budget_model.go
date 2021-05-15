@@ -9,6 +9,6 @@ type BudgetModel struct {
 	Month            uint8
 }
 
-func NewBudgetModel(name string, budgetvalue uint32, performancevalue uint32, year uint8, month uint8) *BudgetModel {
-	return &BudgetModel{Name: name, BudgetValue: budgetvalue, PerformanceValue: performancevalue, Year: year, Month: month}
+func NewBudgetModel(categorieID uint32, budgetvalue uint32, performancevalue uint32, year uint16, month uint8) *BudgetModel {
+	return &BudgetModel{CategorieID: categorieID, BudgetValue: budgetvalue, PerformanceValue: performancevalue, Year: year, Month: month}
 }

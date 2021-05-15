@@ -3,10 +3,11 @@ package usecase
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
+	"context"
 )
 
 type BudgetUseCase interface {
-	GetBudget(categorieID uint32, year uint16, month uint8) (*model.BudgetModel, error)
+	GetBudget(ctx context.Context) (*model.BudgetModel, error)
 }
 
 type budgetUseCase struct {
@@ -21,9 +22,9 @@ func NewBudgetUseCase(rr repository.BudgetRepository) BudgetUseCase {
 }
 
 // GetBudget Budgetデータを全件取得するためのユースケース
-func (ru budgetUseCase) GetBudget(categorieID uint32, year uint16, month uint8) (budget *model.BudgetModel, err error) {
+func (ru budgetUseCase) GetBudget(ctx context.Context) (budget *model.BudgetModel, err error) {
 	// Persistence（Repository）を呼出
-	budget, err = ru.budgetRepository.GetBudget(categorieID, year, month)
+	budget, err = ru.budgetRepository.GetBudget(ctx)
 	if err != nil {
 		return nil, err
 	}
