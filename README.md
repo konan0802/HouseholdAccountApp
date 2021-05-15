@@ -5,6 +5,7 @@
 # Requirements
 - Google App Engine (Server)
     - Golang go1.15
+    - React
 - Google SpreadSheet (DB)
 
 # Layered Architecture + DDD
