@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	handler "HouseholdAccountApp/handler/rest"
 	"HouseholdAccountApp/infra/persistence"
@@ -13,8 +13,7 @@ import (
 )
 
 func main() {
-	// 依存関係を注入（DI まではいきませんが一応注入っぽいことをしてる）
-	// DI ライブラリを使えば、もっとスマートになるはず
+	// 依存関係を注入
 	budgetPersistence := persistence.NewBudgetPersistence()
 	budgetUseCase := usecase.NewBudgetUseCase(budgetPersistence)
 	budgetHandler := handler.NewBudgetHandler(budgetUseCase)
@@ -28,8 +27,9 @@ func main() {
 	router.GET("/api/v1/receipt", receiptHandler.Index)
 
 	// サーバ起動
-	fmt.Println("========================")
-	fmt.Println("Server Start >> http://localhost:3000")
-	fmt.Println("========================")
-	log.Fatal(http.ListenAndServe(":3000", router))
+	port := os.Getenv("PORT")
+	err := http.ListenAndServe(":"+port, router)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
