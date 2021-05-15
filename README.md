@@ -2,13 +2,13 @@
 
 "HouseholdAccountApp" is a household account book application that uses google spreadsheet.
 
-# Requirements
+## Requirements
 - Google App Engine (Server)
     - Golang go1.15
     - React
 - Google SpreadSheet (DB)
 
-# Layered Architecture + DDD
+## Layered Architecture + DDD
     [handler]
     　　↓
     [usecase]
@@ -17,7 +17,7 @@
     　　↑
     [infra]
 
-# Directory structure
+## Directory structure
     ├── main.go
     ├── handler
     │   └── rest
@@ -37,3 +37,13 @@
         └── persistence
             ├── budget_mock.go
             └── receipt_mock.go
+
+## API Specification
+#### GET:receipt/monthlyreceipts
+
+#### POST:receipt/create
+
+#### GET:budget/monthlybudget
+
+
+budget page

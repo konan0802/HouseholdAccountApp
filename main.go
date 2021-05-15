@@ -17,7 +17,7 @@ func main() {
 	budgetPersistence := persistence.NewBudgetPersistence()
 	budgetUseCase := usecase.NewBudgetUseCase(budgetPersistence)
 	budgetHandler := handler.NewBudgetHandler(budgetUseCase)
-	receiptPersistence := persistence.NewReceiptPersistence()
+	receiptPersistence := persistence.NewReceiptPersistenceMock()
 	receiptUseCase := usecase.NewReceiptUseCase(receiptPersistence)
 	receiptHandler := handler.NewReceiptHandler(receiptUseCase)
 

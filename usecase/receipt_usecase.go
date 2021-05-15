@@ -7,7 +7,7 @@ import (
 )
 
 type ReceiptUseCase interface {
-	GetReceipt(ctx context.Context) (*model.ReceiptModel, error)
+	GetMonthlyReceipts(ctx context.Context) ([]*model.ReceiptModel, error)
 }
 
 type receiptUseCase struct {
@@ -21,12 +21,12 @@ func NewReceiptUseCase(rr repository.ReceiptRepository) ReceiptUseCase {
 	}
 }
 
-// GetReceipt Receiptデータを全件取得するためのユースケース
-func (ru receiptUseCase) GetReceipt(ctx context.Context) (receipt *model.ReceiptModel, err error) {
+// GetMonthlyReceipts Receiptデータを全件取得するためのユースケース
+func (ru receiptUseCase) GetMonthlyReceipts(ctx context.Context) (receipts []*model.ReceiptModel, err error) {
 	// Persistence（Repository）を呼出
-	receipt, err = ru.receiptRepository.GetReceipt(ctx)
+	receipts, err = ru.receiptRepository.GetMonthlyReceipts(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return receipt, nil
+	return receipts, nil
 }

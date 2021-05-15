@@ -35,16 +35,19 @@ func (bh receiptHandler) Index(w http.ResponseWriter, r *http.Request, pr httpro
 	type receiptField struct {
 		ReceiptID   uint32    `json:"receiptID"`
 		CategorieID uint32    `json:"categorieID"`
-		ProductName string    `json:"productName"`
+		Description string    `json:"description"`
 		Price       uint32    `json:"price"`
-		Methods     string    `json:"methods"`
 		Datetime    time.Time `json:"datetime"`
+	}
+
+	type response struct {
+		Receipts []receiptField `json:"receipt"`
 	}
 
 	ctx := r.Context()
 
 	// ユースケースの呼出
-	receipt, err := bh.receiptUseCase.GetReceipt(ctx)
+	receipts, err := bh.receiptUseCase.GetMonthlyReceipts(ctx)
 	if err != nil {
 		// TODO: エラーハンドリングをきちんとする
 		http.Error(w, "Internal Server Error", 500)
@@ -52,11 +55,15 @@ func (bh receiptHandler) Index(w http.ResponseWriter, r *http.Request, pr httpro
 	}
 
 	// 取得したドメインモデルを response に変換
-	rf := receiptField(*receipt)
+	res := new(response)
+	for _, receipt := range receipts {
+		rf := receiptField(*receipt)
+		res.Receipts = append(res.Receipts, rf)
+	}
 
 	// クライアントにレスポンスを返却
 	w.Header().Set("Content-Type", "application/json")
-	if err = json.NewEncoder(w).Encode(rf); err != nil {
+	if err = json.NewEncoder(w).Encode(res); err != nil {
 		// TODO: エラーハンドリングをきちんとする
 		http.Error(w, "Internal Server Error", 500)
 		return

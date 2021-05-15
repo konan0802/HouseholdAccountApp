@@ -13,8 +13,8 @@ func NewBudgetPersistence() repository.BudgetRepository {
 	return &budgetPersistence{}
 }
 
-// GetBudget 対象年月の予算を取得する
-func (bp *budgetPersistence) GetBudget(ctx context.Context) (*model.BudgetModel, error) {
+// GetMonthlyBudgets 対象年月の予算を取得する
+func (bp *budgetPersistence) GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error) {
 	bm := model.BudgetModel{
 		CategorieID:      0,
 		BudgetValue:      30000,

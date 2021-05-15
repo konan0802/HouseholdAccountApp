@@ -7,7 +7,7 @@ import (
 )
 
 type BudgetUseCase interface {
-	GetBudget(ctx context.Context) (*model.BudgetModel, error)
+	GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error)
 }
 
 type budgetUseCase struct {
@@ -21,10 +21,10 @@ func NewBudgetUseCase(rr repository.BudgetRepository) BudgetUseCase {
 	}
 }
 
-// GetBudget Budgetデータを全件取得するためのユースケース
-func (ru budgetUseCase) GetBudget(ctx context.Context) (budget *model.BudgetModel, err error) {
+// GetMonthlyBudgets Budgetデータを全件取得するためのユースケース
+func (ru budgetUseCase) GetMonthlyBudgets(ctx context.Context) (budget *model.BudgetModel, err error) {
 	// Persistence（Repository）を呼出
-	budget, err = ru.budgetRepository.GetBudget(ctx)
+	budget, err = ru.budgetRepository.GetMonthlyBudgets(ctx)
 	if err != nil {
 		return nil, err
 	}

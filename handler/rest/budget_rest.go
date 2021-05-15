@@ -41,7 +41,7 @@ func (bh budgetHandler) Index(w http.ResponseWriter, r *http.Request, pr httprou
 	ctx := r.Context()
 
 	// ユースケースの呼出
-	budget, err := bh.budgetUseCase.GetBudget(ctx)
+	budget, err := bh.budgetUseCase.GetMonthlyBudgets(ctx)
 	if err != nil {
 		// TODO: エラーハンドリングをきちんとする
 		http.Error(w, "Internal Server Error", 500)
