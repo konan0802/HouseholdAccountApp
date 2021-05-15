@@ -23,7 +23,7 @@ func NewBudgetUseCase(rr repository.BudgetRepository) BudgetUseCase {
 
 // GetMonthlyBudgets Budgetデータを全件取得するためのユースケース
 func (ru budgetUseCase) GetMonthlyBudgets(ctx context.Context) (budget *model.BudgetModel, err error) {
-	// Persistence（Repository）を呼出
+	// Infra（Repository）を呼出
 	budget, err = ru.budgetRepository.GetMonthlyBudgets(ctx)
 	if err != nil {
 		return nil, err

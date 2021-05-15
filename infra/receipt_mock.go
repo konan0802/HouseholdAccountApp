@@ -1,4 +1,4 @@
-package persistence
+package infra
 
 import (
 	"HouseholdAccountApp/domain/model"
@@ -7,15 +7,15 @@ import (
 	"time"
 )
 
-type receiptPersistenceMock struct{}
+type receiptInfraMock struct{}
 
-// NewReceiptPersistenceMock Receiptデータに関するPersistenceを生成
-func NewReceiptPersistenceMock() repository.ReceiptRepository {
-	return &receiptPersistenceMock{}
+// NewReceiptInfraMock Receiptデータに関するInfraを生成
+func NewReceiptInfraMock() repository.ReceiptRepository {
+	return &receiptInfraMock{}
 }
 
 // GetMonthlyReceipts 対象年月の予算を取得する
-func (rp *receiptPersistenceMock) GetMonthlyReceipts(ctx context.Context) ([]*model.ReceiptModel, error) {
+func (rp *receiptInfraMock) GetMonthlyReceipts(ctx context.Context) ([]*model.ReceiptModel, error) {
 	rm1 := model.ReceiptModel{
 		ReceiptID:   1,
 		CategorieID: 0,

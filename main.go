@@ -6,7 +6,7 @@ import (
 	"os"
 
 	handler "HouseholdAccountApp/handler/rest"
-	"HouseholdAccountApp/infra/persistence"
+	"HouseholdAccountApp/infra"
 	"HouseholdAccountApp/usecase"
 
 	"github.com/julienschmidt/httprouter"
@@ -14,17 +14,17 @@ import (
 
 func main() {
 	// 依存関係を注入
-	budgetPersistence := persistence.NewBudgetPersistenceMock()
-	budgetUseCase := usecase.NewBudgetUseCase(budgetPersistence)
+	budgetInfra := infra.NewBudgetInfraMock()
+	budgetUseCase := usecase.NewBudgetUseCase(budgetInfra)
 	budgetHandler := handler.NewBudgetHandler(budgetUseCase)
-	receiptPersistence := persistence.NewReceiptPersistenceMock()
-	receiptUseCase := usecase.NewReceiptUseCase(receiptPersistence)
+	receiptInfra := infra.NewReceiptInfraMock()
+	receiptUseCase := usecase.NewReceiptUseCase(receiptInfra)
 	receiptHandler := handler.NewReceiptHandler(receiptUseCase)
 
 	// ルーティングの設定
 	router := httprouter.New()
-	router.GET("/api/v1/budget", budgetHandler.Index)
-	router.GET("/api/v1/receipt", receiptHandler.Index)
+	router.GET("/budget/monthlybudget", budgetHandler.Index)
+	router.GET("/receipt/monthlyreceipts", receiptHandler.Index)
 
 	// サーバ起動
 	port := os.Getenv("PORT")

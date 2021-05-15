@@ -34,7 +34,9 @@
     │       ├── budget_repository.go
     │       └── receipt_repository.go
     └── infra
-        └── persistence
+        └── infra
+            ├── budget_ss.go
+            ├── receipt_ss.go
             ├── budget_mock.go
             └── receipt_mock.go
 

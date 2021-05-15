@@ -1,4 +1,4 @@
-package persistence
+package infra
 
 import (
 	"HouseholdAccountApp/domain/model"
@@ -6,15 +6,15 @@ import (
 	"context"
 )
 
-type budgetPersistenceMock struct{}
+type budgetInfraMock struct{}
 
-// NewBudgetPersistence Budgetデータに関するPersistenceを生成
-func NewBudgetPersistenceMock() repository.BudgetRepository {
-	return &budgetPersistenceMock{}
+// NewBudgetInfraMock Budgetデータに関するInfraを生成
+func NewBudgetInfraMock() repository.BudgetRepository {
+	return &budgetInfraMock{}
 }
 
 // GetMonthlyBudgets 対象年月の予算を取得する
-func (bp *budgetPersistenceMock) GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error) {
+func (bp *budgetInfraMock) GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error) {
 	bm := model.BudgetModel{
 		CategorieID:      0,
 		BudgetValue:      30000,

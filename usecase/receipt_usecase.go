@@ -23,7 +23,7 @@ func NewReceiptUseCase(rr repository.ReceiptRepository) ReceiptUseCase {
 
 // GetMonthlyReceipts Receiptデータを全件取得するためのユースケース
 func (ru receiptUseCase) GetMonthlyReceipts(ctx context.Context) (receipts []*model.ReceiptModel, err error) {
-	// Persistence（Repository）を呼出
+	// Infra（Repository）を呼出
 	receipts, err = ru.receiptRepository.GetMonthlyReceipts(ctx)
 	if err != nil {
 		return nil, err
