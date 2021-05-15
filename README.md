@@ -8,31 +8,31 @@
 - Google SpreadSheet (DB)
 
 # Layered Architecture + DDD
-[handler]
-　　↓
-[usecase]
-　　↓
-[domain]
-　　↑
-[infra]
+    [handler]
+    　　↓
+    [usecase]
+    　　↓
+    [domain]
+    　　↑
+    [infra]
 
 # Directory structure
-├── main.go
-├── handler
-│   └── rest
-│       ├── budget_rest.go
-│       └── receipt_rest.go
-├── usecase
-│   ├── budget_usecase.go
-│   └── receipt_usecase.go
-├── domain
-│   ├── model
-│   │   ├── budget_model.go
-│   │   └── receipt_model.go
-│   └── repository
-│       ├── budget_repository.go
-│       └── receipt_repository.go
-└── infra
-    └── persistence
-        ├── budget_mock.go
-        └── receipt_mock.go
+    ├── main.go
+    ├── handler
+    │   └── rest
+    │       ├── budget_rest.go
+    │       └── receipt_rest.go
+    ├── usecase
+    │   ├── budget_usecase.go
+    │   └── receipt_usecase.go
+    ├── domain
+    │   ├── model
+    │   │   ├── budget_model.go
+    │   │   └── receipt_model.go
+    │   └── repository
+    │       ├── budget_repository.go
+    │       └── receipt_repository.go
+    └── infra
+        └── persistence
+            ├── budget_mock.go
+            └── receipt_mock.go
