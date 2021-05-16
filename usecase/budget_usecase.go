@@ -3,11 +3,10 @@ package usecase
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
-	"context"
 )
 
 type BudgetUseCase interface {
-	GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error)
+	GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([]*model.BudgetModel, error)
 }
 
 type budgetUseCase struct {
@@ -22,11 +21,11 @@ func NewBudgetUseCase(rr repository.BudgetRepository) BudgetUseCase {
 }
 
 // GetMonthlyBudgets Budgetデータを全件取得するためのユースケース
-func (ru budgetUseCase) GetMonthlyBudgets(ctx context.Context) (budget *model.BudgetModel, err error) {
+func (ru budgetUseCase) GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([]*model.BudgetModel, error) {
 	// Infra（Repository）を呼出
-	budget, err = ru.budgetRepository.GetMonthlyBudgets(ctx)
+	budgets, err := ru.budgetRepository.GetMonthlyBudgets(mbr)
 	if err != nil {
 		return nil, err
 	}
-	return budget, nil
+	return budgets, nil
 }

@@ -32,3 +32,8 @@ func (rp *receiptInfraSS) GetMonthlyReceipts(ctx context.Context) ([]*model.Rece
 	}
 	return []*model.ReceiptModel{&rm1, &rm2}, nil
 }
+
+// AddReceipt レシートを追加する
+func (rp *receiptInfraSS) AddReceipt(ctx context.Context) error {
+	return nil
+}

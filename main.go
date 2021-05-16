@@ -23,8 +23,9 @@ func main() {
 
 	// ルーティングの設定
 	router := httprouter.New()
-	router.GET("/budget/monthlybudget", budgetHandler.Index)
-	router.GET("/receipt/monthlyreceipts", receiptHandler.Index)
+	router.GET("/receipt/monthlyreceipts", receiptHandler.GetMonthlyReceipts)
+	router.POST("/receipt/create", receiptHandler.Create)
+	router.GET("/budget/monthlybudget", budgetHandler.GetMonthlybudget)
 
 	// サーバ起動
 	port := os.Getenv("PORT")

@@ -7,6 +7,6 @@ import (
 
 // ReceiptRepository Receiptモデルのリポジトリ
 type ReceiptRepository interface {
-	//AddReceipt(ctx context.Context)
-	GetMonthlyReceipts(ctx context.Context) ([]*model.ReceiptModel, error)
+	AddReceipt(ctx context.Context) error
+	GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error)
 }

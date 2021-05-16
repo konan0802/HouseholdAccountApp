@@ -7,7 +7,8 @@ import (
 )
 
 type ReceiptUseCase interface {
-	GetMonthlyReceipts(ctx context.Context) ([]*model.ReceiptModel, error)
+	GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error)
+	AddReceipt(ctx context.Context) error
 }
 
 type receiptUseCase struct {
@@ -22,11 +23,21 @@ func NewReceiptUseCase(rr repository.ReceiptRepository) ReceiptUseCase {
 }
 
 // GetMonthlyReceipts Receiptデータを全件取得するためのユースケース
-func (ru receiptUseCase) GetMonthlyReceipts(ctx context.Context) (receipts []*model.ReceiptModel, err error) {
+func (ru receiptUseCase) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error) {
 	// Infra（Repository）を呼出
-	receipts, err = ru.receiptRepository.GetMonthlyReceipts(ctx)
+	receipts, err := ru.receiptRepository.GetMonthlyReceipts(mrr)
 	if err != nil {
 		return nil, err
 	}
 	return receipts, nil
+}
+
+// AddReceipt Receiptデータを全件取得するためのユースケース
+func (ru receiptUseCase) AddReceipt(ctx context.Context) error {
+	// Infra（Repository）を呼出
+	err := ru.receiptRepository.AddReceipt(ctx)
+	if err != nil {
+		return err
+	}
+	return nil
 }
