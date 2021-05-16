@@ -44,10 +44,10 @@ func (bh budgetHandler) GetMonthlybudget(w http.ResponseWriter, r *http.Request,
 	_ = r.ParseForm()
 	yearStr := r.Form.Get("year")
 	yearUint64, _ := strconv.ParseUint(yearStr, 10, 64)
-	yearUint := uint16(yearUint64)
+	yearUint := uint32(yearUint64)
 	monthStr := r.Form.Get("month")
 	monthUint64, _ := strconv.ParseUint(monthStr, 10, 64)
-	monthUint := uint8(monthUint64)
+	monthUint := uint32(monthUint64)
 
 	// リクエストstructに埋め込み
 	mbr := model.MonthlyBudgetsRequest{

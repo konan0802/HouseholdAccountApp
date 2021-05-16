@@ -3,7 +3,6 @@ package infra
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
-	"context"
 	"time"
 )
 
@@ -34,15 +33,13 @@ func (rp *receiptInfraMock) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest)
 }
 
 // AddReceipt レシートを追加する
-func (rp *receiptInfraMock) AddReceipt(ctx context.Context) error {
-	/*
-		rm := model.ReceiptModel{
-			ReceiptID:   2,
-			CategorieID: 1,
-			Description: "椅子",
-			Price:       4000,
-			Datetime:    time.Date(2021, time.May, 16, 5, 0, 0, 0, time.UTC),
-		}
-	*/
-	return nil
+func (rp *receiptInfraMock) AddReceipt(mrr model.AddReceiptRequest) (*model.ReceiptModel, error) {
+	rm := model.ReceiptModel{
+		ReceiptID:   2,
+		CategorieID: 1,
+		Description: "椅子",
+		Price:       4000,
+		Datetime:    time.Date(2021, time.May, 16, 5, 0, 0, 0, time.UTC),
+	}
+	return &rm, nil
 }

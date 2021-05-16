@@ -3,12 +3,11 @@ package usecase
 import (
 	"HouseholdAccountApp/domain/model"
 	"HouseholdAccountApp/domain/repository"
-	"context"
 )
 
 type ReceiptUseCase interface {
 	GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error)
-	AddReceipt(ctx context.Context) error
+	AddReceipt(mrr model.AddReceiptRequest) (*model.ReceiptModel, error)
 }
 
 type receiptUseCase struct {
@@ -33,11 +32,11 @@ func (ru receiptUseCase) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([
 }
 
 // AddReceipt Receiptデータを全件取得するためのユースケース
-func (ru receiptUseCase) AddReceipt(ctx context.Context) error {
+func (ru receiptUseCase) AddReceipt(arr model.AddReceiptRequest) (*model.ReceiptModel, error) {
 	// Infra（Repository）を呼出
-	err := ru.receiptRepository.AddReceipt(ctx)
+	receipt, err := ru.receiptRepository.AddReceipt(arr)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return receipt, nil
 }

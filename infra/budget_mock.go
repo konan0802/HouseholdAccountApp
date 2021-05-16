@@ -18,6 +18,7 @@ func (bp *budgetInfraMock) GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([
 		CategorieID:      0,
 		BudgetValue:      30000,
 		PerformanceValue: 0,
+		ProgressValue:    50,
 		Year:             mbr.Year,
 		Month:            mbr.Month,
 	}
@@ -25,6 +26,7 @@ func (bp *budgetInfraMock) GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([
 		CategorieID:      1,
 		BudgetValue:      40000,
 		PerformanceValue: 2000,
+		ProgressValue:    50,
 		Year:             mbr.Year,
 		Month:            mbr.Month,
 	}
