@@ -1,8 +1,8 @@
 package infra
 
 import (
-	"HouseholdAccountApp/domain/model"
-	"HouseholdAccountApp/domain/repository"
+	"MillionaireApp/domain/model"
+	"MillionaireApp/domain/repository"
 )
 
 type budgetInfraMock struct{}

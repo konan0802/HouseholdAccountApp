@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"HouseholdAccountApp/domain/model"
+	"MillionaireApp/domain/model"
 )
 
 // ReceiptRepository Receiptモデルのリポジトリ

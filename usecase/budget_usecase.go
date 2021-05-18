@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"HouseholdAccountApp/domain/model"
-	"HouseholdAccountApp/domain/repository"
+	"MillionaireApp/domain/model"
+	"MillionaireApp/domain/repository"
 )
 
 type BudgetUseCase interface {

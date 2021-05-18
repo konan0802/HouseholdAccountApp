@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"HouseholdAccountApp/domain/model"
-	"HouseholdAccountApp/usecase"
+	"MillionaireApp/domain/model"
+	"MillionaireApp/usecase"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/julienschmidt/httprouter"

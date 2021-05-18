@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"os"
 
-	handler "HouseholdAccountApp/handler/rest"
-	"HouseholdAccountApp/infra"
-	"HouseholdAccountApp/usecase"
+	handler "MillionaireApp/handler/rest"
+	"MillionaireApp/infra"
+	"MillionaireApp/usecase"
 
 	"github.com/julienschmidt/httprouter"
 )
