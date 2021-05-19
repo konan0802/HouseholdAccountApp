@@ -40,14 +40,6 @@
             ├── budget_mock.go
             └── receipt_mock.go
 
-## API Specification
-#### GET:receipt/monthlyreceipts
-
-#### POST:receipt/create
-
-#### GET:budget/monthlybudget
-https://MillionaireApp.an.r.appspot.com//receipt/create?categorie_name=%E9%A3%9F%E8%B2%BB&description=%E8%B1%86%E8%85%90&price=150&datetime=2021/5/16
-
 ## TODO
 * Infra
     * conect spreadsheet
@@ -55,5 +47,7 @@ https://MillionaireApp.an.r.appspot.com//receipt/create?categorie_name=%E9%A3%9F
     * React
 * Update README
     * about MillionaireApp
-    * API Specification
+        * spreadsheet
+        * GAE
+    * How to start
     * UI image
