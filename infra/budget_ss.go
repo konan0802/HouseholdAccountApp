@@ -3,24 +3,36 @@ package infra
 import (
 	"MillionaireApp/domain/model"
 	"MillionaireApp/domain/repository"
-	"context"
 )
 
-type budgetInfraSS struct{}
+type budgetInfraSS struct {
+	spreadSheets *SpreadSheets
+}
 
 // NewBudgetInfraSS Budgetデータに関するInfraを生成
-func NewBudgetInfraSS() repository.BudgetRepository {
-	return &budgetInfraMock{}
+func NewBudgetInfraSS(spreadSheets *SpreadSheets) repository.BudgetRepository {
+	return &budgetInfraSS{
+		spreadSheets: spreadSheets,
+	}
 }
 
 // GetMonthlyBudgets 対象年月の予算を取得する
-func (bp *budgetInfraSS) GetMonthlyBudgets(ctx context.Context) (*model.BudgetModel, error) {
-	bm := model.BudgetModel{
+func (bp *budgetInfraSS) GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([]*model.BudgetModel, error) {
+	bm1 := model.BudgetModel{
 		CategorieID:      0,
 		BudgetValue:      30000,
 		PerformanceValue: 0,
-		Year:             2021,
-		Month:            05,
+		ProgressValue:    50,
+		Year:             mbr.Year,
+		Month:            mbr.Month,
 	}
-	return &bm, nil
+	bm2 := model.BudgetModel{
+		CategorieID:      1,
+		BudgetValue:      40000,
+		PerformanceValue: 2000,
+		ProgressValue:    50,
+		Year:             mbr.Year,
+		Month:            mbr.Month,
+	}
+	return []*model.BudgetModel{&bm1, &bm2}, nil
 }

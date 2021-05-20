@@ -14,10 +14,12 @@ import (
 
 func main() {
 	// 依存関係を注入
-	budgetInfra := infra.NewBudgetInfraMock()
+
+	ss := infra.NewSpreadsheets(os.Getenv("SPREADSHEETID"), os.Getenv("CREDENTIALFILEPATH"))
+	budgetInfra := infra.NewBudgetInfraSS(ss)
 	budgetUseCase := usecase.NewBudgetUseCase(budgetInfra)
 	budgetHandler := handler.NewBudgetHandler(budgetUseCase)
-	receiptInfra := infra.NewReceiptInfraMock()
+	receiptInfra := infra.NewReceiptInfraSS(ss)
 	receiptUseCase := usecase.NewReceiptUseCase(receiptInfra)
 	receiptHandler := handler.NewReceiptHandler(receiptUseCase)
 
