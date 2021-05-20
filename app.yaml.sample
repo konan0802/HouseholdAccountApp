@@ -1,0 +1,5 @@
+runtime: go115
+
+env_variables:
+  SPREADSHEETID : "スプレッドシートのURLから抽出したID"
+  CREDENTIALFILEPATH : "秘密鍵のJSONファイルのパス"
