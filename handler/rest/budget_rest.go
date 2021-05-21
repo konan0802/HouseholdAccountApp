@@ -43,11 +43,9 @@ func (bh budgetHandler) GetMonthlybudget(w http.ResponseWriter, r *http.Request,
 	// （エラーの場合は0が代入される）
 	_ = r.ParseForm()
 	yearStr := r.Form.Get("year")
-	yearUint64, _ := strconv.ParseUint(yearStr, 10, 64)
-	yearUint := uint32(yearUint64)
+	yearUint, _ := strconv.Atoi(yearStr)
 	monthStr := r.Form.Get("month")
-	monthUint64, _ := strconv.ParseUint(monthStr, 10, 64)
-	monthUint := uint32(monthUint64)
+	monthUint, _ := strconv.Atoi(monthStr)
 
 	// リクエストstructに埋め込み
 	mbr := model.MonthlyBudgetsRequest{

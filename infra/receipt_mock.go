@@ -3,7 +3,6 @@ package infra
 import (
 	"MillionaireApp/domain/model"
 	"MillionaireApp/domain/repository"
-	"time"
 )
 
 type receiptInfraMock struct{}
@@ -20,14 +19,14 @@ func (rp *receiptInfraMock) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest)
 		CategorieID: 0,
 		Description: "コーヒー",
 		Price:       300,
-		Datetime:    time.Date(int(mrr.Year), time.May, int(mrr.Month), 5, 0, 0, 0, time.UTC),
+		Datetime:    "2006-01-02 15:04:05",
 	}
 	rm2 := model.ReceiptModel{
 		ReceiptID:   2,
 		CategorieID: 1,
 		Description: "椅子",
 		Price:       4000,
-		Datetime:    time.Date(int(mrr.Year), time.May, int(mrr.Month), 5, 0, 0, 0, time.UTC),
+		Datetime:    "2006-01-02 15:04:05",
 	}
 	return []*model.ReceiptModel{&rm1, &rm2}, nil
 }
@@ -39,7 +38,7 @@ func (rp *receiptInfraMock) AddReceipt(mrr model.AddReceiptRequest) (*model.Rece
 		CategorieID: 1,
 		Description: "椅子",
 		Price:       4000,
-		Datetime:    time.Date(2021, time.May, 16, 5, 0, 0, 0, time.UTC),
+		Datetime:    "2006-01-02 15:04:05",
 	}
 	return &rm, nil
 }

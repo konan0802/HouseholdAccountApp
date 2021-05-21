@@ -10,11 +10,12 @@ import (
 
 // Spreadsheets Spreadsheetsを取り扱う上でのstruct
 type SpreadSheets struct {
-	SheetService *sheets.Service
+	SheetService  *sheets.Service
+	SpreadsheetId string
 }
 
 // NewSpreadsheets Spreadsheetsインスタンスの生成
-func NewSpreadsheets(spreadsheetId string, credentialFilePath string) *SpreadSheets {
+func NewSpreadsheets(spreadsheetId string, credentialFilePath string) SpreadSheets {
 
 	credential := option.WithCredentialsFile(credentialFilePath)
 
@@ -23,7 +24,13 @@ func NewSpreadsheets(spreadsheetId string, credentialFilePath string) *SpreadShe
 		log.Fatalf("Unable to retrieve Sheets Client %v", err)
 	}
 
-	return &SpreadSheets{
-		SheetService: sheetService,
+	_, err = sheetService.Spreadsheets.Get(spreadsheetId).Do()
+	if err != nil {
+		log.Fatalf("Unable to get Spreadsheets. %v", err)
+	}
+
+	return SpreadSheets{
+		SheetService:  sheetService,
+		SpreadsheetId: spreadsheetId,
 	}
 }

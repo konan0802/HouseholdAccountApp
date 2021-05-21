@@ -6,13 +6,13 @@ import (
 )
 
 type budgetInfraSS struct {
-	spreadSheets *SpreadSheets
+	SS SpreadSheets
 }
 
 // NewBudgetInfraSS Budgetデータに関するInfraを生成
-func NewBudgetInfraSS(spreadSheets *SpreadSheets) repository.BudgetRepository {
+func NewBudgetInfraSS(ss SpreadSheets) repository.BudgetRepository {
 	return &budgetInfraSS{
-		spreadSheets: spreadSheets,
+		SS: ss,
 	}
 }
 

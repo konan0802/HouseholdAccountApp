@@ -41,11 +41,9 @@ func (rh receiptHandler) GetMonthlyReceipts(w http.ResponseWriter, r *http.Reque
 	// （エラーの場合は0が代入される）
 	_ = r.ParseForm()
 	yearStr := r.Form.Get("year")
-	yearUint64, _ := strconv.ParseUint(yearStr, 10, 64)
-	yearUint := uint32(yearUint64)
+	yearUint, _ := strconv.Atoi(yearStr)
 	monthStr := r.Form.Get("month")
-	monthUint64, _ := strconv.ParseUint(monthStr, 10, 64)
-	monthUint := uint32(monthUint64)
+	monthUint, _ := strconv.Atoi(monthStr)
 
 	// リクエストstructに埋め込み
 	mrr := model.MonthlyReceiptsRequest{
@@ -100,8 +98,7 @@ func (rh receiptHandler) Create(w http.ResponseWriter, r *http.Request, pr httpr
 	categorieName := r.Form.Get("categorie_name")
 	description := r.Form.Get("description")
 	priceStr := r.Form.Get("price")
-	priceUint64, _ := strconv.ParseUint(priceStr, 10, 64)
-	priceUint32 := uint32(priceUint64)
+	priceUint32, _ := strconv.Atoi(priceStr)
 	datetime := r.Form.Get("datetime")
 
 	// リクエストstructに埋め込み

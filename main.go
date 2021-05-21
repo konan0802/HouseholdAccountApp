@@ -14,7 +14,6 @@ import (
 
 func main() {
 	// 依存関係を注入
-
 	ss := infra.NewSpreadsheets(os.Getenv("SPREADSHEETID"), os.Getenv("CREDENTIALFILEPATH"))
 	budgetInfra := infra.NewBudgetInfraSS(ss)
 	budgetUseCase := usecase.NewBudgetUseCase(budgetInfra)
