@@ -41,8 +41,6 @@
             └── receipt_mock.go
 
 ## TODO
-* Infra
-    * conect spreadsheet
 * Front
     * React
 * Update README
