@@ -62,7 +62,7 @@ func (bh budgetHandler) GetMonthlybudget(w http.ResponseWriter, r *http.Request,
 
 	// バリデーションを実行
 	validate = validator.New()
-	err := validate.Struct(mbr)
+	err = validate.Struct(mbr)
 	if err != nil {
 		// TODO: エラーハンドリングをきちんとする
 		http.Error(w, "Internal Server Error: validate.Struct", 500)

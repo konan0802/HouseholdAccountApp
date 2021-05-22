@@ -1,8 +1,11 @@
 package infra
 
 import (
+	"MillionaireApp/config"
 	"MillionaireApp/domain/model"
 	"MillionaireApp/domain/repository"
+	"log"
+	"strconv"
 )
 
 type budgetInfraSS struct {
@@ -10,29 +13,47 @@ type budgetInfraSS struct {
 }
 
 // NewBudgetInfraSS Budgetデータに関するInfraを生成
-func NewBudgetInfraSS(ss SpreadSheets) repository.BudgetRepository {
+func NewBudgetInfraSS(sheetService SpreadSheets) repository.BudgetRepository {
 	return &budgetInfraSS{
-		SS: ss,
+		SS: sheetService,
 	}
 }
 
 // GetMonthlyBudgets 対象年月の予算を取得する
 func (bp *budgetInfraSS) GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([]*model.BudgetModel, error) {
-	bm1 := model.BudgetModel{
-		CategorieID:      0,
-		BudgetValue:      30000,
-		PerformanceValue: 0,
-		ProgressValue:    50,
-		Year:             mbr.Year,
-		Month:            mbr.Month,
+
+	var bms []*model.BudgetModel
+	for cName, cCol := range config.BudgetCategorytoCol {
+
+		getRange := strconv.Itoa(mbr.Year) + "年" + strconv.Itoa(mbr.Month) + "月" + "!" + cCol + config.BugetStartCol + ":" + cCol + config.BugetEndCol
+		resp, err := bp.SS.SheetService.Spreadsheets.Values.Get(bp.SS.SpreadsheetId, getRange).Do()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		budgetValue, err := strconv.Atoi(resp.Values[0][0].(string))
+		if err != nil {
+			log.Fatal(err)
+		}
+		performanceValue, err := strconv.Atoi(resp.Values[1][0].(string))
+		if err != nil {
+			log.Fatal(err)
+		}
+		progressValue, err := strconv.Atoi(resp.Values[2][0].(string))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		bm := model.BudgetModel{
+			CategorieID:      config.CategorieNametoInt[cName],
+			BudgetValue:      budgetValue,
+			PerformanceValue: performanceValue,
+			ProgressValue:    progressValue,
+			Year:             mbr.Year,
+			Month:            mbr.Month,
+		}
+		bms = append(bms, &bm)
 	}
-	bm2 := model.BudgetModel{
-		CategorieID:      1,
-		BudgetValue:      40000,
-		PerformanceValue: 2000,
-		ProgressValue:    50,
-		Year:             mbr.Year,
-		Month:            mbr.Month,
-	}
-	return []*model.BudgetModel{&bm1, &bm2}, nil
+
+	return bms, nil
 }

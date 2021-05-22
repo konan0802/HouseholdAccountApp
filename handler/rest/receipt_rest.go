@@ -60,7 +60,7 @@ func (rh receiptHandler) GetMonthlyReceipts(w http.ResponseWriter, r *http.Reque
 
 	// バリデーションを実行
 	validate = validator.New()
-	err := validate.Struct(mrr)
+	err = validate.Struct(mrr)
 	if err != nil {
 		// TODO: エラーハンドリングをきちんとする
 		http.Error(w, "Internal Server Error:Struct", 500)
@@ -121,7 +121,7 @@ func (rh receiptHandler) Create(w http.ResponseWriter, r *http.Request, pr httpr
 
 	// バリデーションを実行
 	validate = validator.New()
-	err := validate.Struct(arr)
+	err = validate.Struct(arr)
 	if err != nil {
 		// TODO: エラーハンドリングをきちんとする
 		http.Error(w, "Internal Server Error: validate.Struct", 500)

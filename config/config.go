@@ -48,3 +48,18 @@ var ReciptStartRow = 7
 
 // GetReciptRange 対象レシートの取得
 var GetReciptRange = "!B7:E1000"
+
+// BudgetCategorytoCol 予算の絡む番号
+var BudgetCategorytoCol = map[string]string{
+	"食費":   "B",
+	"生活用品": "C",
+	"娯楽":   "D",
+	"水道代":  "E",
+	"家具家電": "F",
+}
+
+// BugetStartCol 予実が始まる行
+var BugetStartCol = "2"
+
+// BugetEndCol 予実が終わる行
+var BugetEndCol = "4"
