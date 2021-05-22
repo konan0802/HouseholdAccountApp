@@ -17,13 +17,16 @@ type SpreadSheets struct {
 // NewSpreadsheets Spreadsheetsインスタンスの生成
 func NewSpreadsheets(spreadsheetId string, credentialFilePath string) SpreadSheets {
 
+	// クレデンシャルの作成
 	credential := option.WithCredentialsFile(credentialFilePath)
 
+	// シートオブジェクトの作成
 	sheetService, err := sheets.NewService(context.TODO(), credential)
 	if err != nil {
 		log.Fatalf("Unable to retrieve Sheets Client %v", err)
 	}
 
+	// シートの取得テスト
 	_, err = sheetService.Spreadsheets.Get(spreadsheetId).Do()
 	if err != nil {
 		log.Fatalf("Unable to get Spreadsheets. %v", err)

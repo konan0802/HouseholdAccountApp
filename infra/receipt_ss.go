@@ -6,6 +6,7 @@ import (
 	"MillionaireApp/domain/repository"
 	"log"
 	"strconv"
+	"time"
 
 	"google.golang.org/api/sheets/v4"
 )
@@ -25,10 +26,11 @@ func NewReceiptInfraSS(sheetService SpreadSheets) repository.ReceiptRepository {
 func (rp *ReceiptInfraSS) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error) {
 
 	// 取得範囲の作成
-	GetYM := strconv.Itoa(mrr.Year) + "年" + strconv.Itoa(mrr.Month) + "月"
+	getSheet := strconv.Itoa(mrr.Year) + "年" + strconv.Itoa(mrr.Month) + "月"
+	getSheetRange := getSheet + config.GetReciptRange
 
 	// レシートの取得
-	resp, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, GetYM+config.GetReciptRange).Do()
+	resp, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, getSheetRange).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,8 +56,20 @@ func (rp *ReceiptInfraSS) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) (
 // AddReceipt レシートを追加する
 func (rp *ReceiptInfraSS) AddReceipt(arr model.AddReceiptRequest) (*model.ReceiptModel, error) {
 
-	// インサートする行を確認
-	val, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, config.NowYM+config.CheckReciptColumnsRange).Do()
+	// 追加レシートの時間をパース
+	t, err := time.Parse(config.TimeLayout, arr.Datetime)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// 取得対象シート
+	getSheet := strconv.Itoa(t.Year()) + "年" + strconv.Itoa(int(t.Month())) + "月"
+
+	// 取得対象範囲（インサート行の確認）
+	getSheetRange := getSheet + config.CheckReciptColumnsRange
+
+	// インサート行の確認
+	val, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, getSheetRange).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,7 +77,7 @@ func (rp *ReceiptInfraSS) AddReceipt(arr model.AddReceiptRequest) (*model.Receip
 	// インサート開始行の計算
 	start := len(val.Values)
 	startRow := strconv.Itoa(config.ReciptStartRow + start)
-	inputeRow := config.NowYM + "!" + config.ReceiptStartCol + startRow + ":" + config.ReceiptEndCol + startRow
+	inputeRow := getSheet + "!" + config.ReceiptStartCol + startRow + ":" + config.ReceiptEndCol + startRow
 
 	// インサートする値
 	valueRange := &sheets.ValueRange{

@@ -22,15 +22,21 @@ func NewBudgetInfraSS(sheetService SpreadSheets) repository.BudgetRepository {
 // GetMonthlyBudgets 対象年月の予算を取得する
 func (bp *budgetInfraSS) GetMonthlyBudgets(mbr model.MonthlyBudgetsRequest) ([]*model.BudgetModel, error) {
 
+	// 予実項目毎にオブジェクトを取得
 	var bms []*model.BudgetModel
 	for cName, cCol := range config.BudgetCategorytoCol {
 
-		getRange := strconv.Itoa(mbr.Year) + "年" + strconv.Itoa(mbr.Month) + "月" + "!" + cCol + config.BugetStartCol + ":" + cCol + config.BugetEndCol
-		resp, err := bp.SS.SheetService.Spreadsheets.Values.Get(bp.SS.SpreadsheetId, getRange).Do()
+		// 取得範囲の作成
+		getSheet := strconv.Itoa(mbr.Year) + "年" + strconv.Itoa(mbr.Month) + "月"
+		getSheetRange := getSheet + "!" + cCol + config.BugetStartCol + ":" + cCol + config.BugetEndCol
+
+		// 予実の取得
+		resp, err := bp.SS.SheetService.Spreadsheets.Values.Get(bp.SS.SpreadsheetId, getSheetRange).Do()
 		if err != nil {
 			log.Fatal(err)
 		}
 
+		// 予実の値をintに変換
 		budgetValue, err := strconv.Atoi(resp.Values[0][0].(string))
 		if err != nil {
 			log.Fatal(err)

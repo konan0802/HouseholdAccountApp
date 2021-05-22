@@ -1,19 +1,5 @@
 package config
 
-import (
-	"time"
-)
-
-var Now time.Time
-
-func init() {
-	loc, err := time.LoadLocation("Asia/Tokyo")
-	if err != nil {
-		loc = time.FixedZone("Asia/Tokyo", 9*60*60)
-	}
-	Now = time.Now().In(loc)
-}
-
 // CategorieIDtoName CategorieIDとカテゴリ名の対応
 var CategorieIDtoName = map[int]string{
 	0: "食費",
@@ -32,9 +18,7 @@ var CategorieNametoInt = map[string]int{
 	"家具家電": 4,
 }
 
-// NowYM 対象月のシート名
-//var NowYM = strconv.Itoa(Now.Year()) + "年" + Now.Month().String() + "月"
-var NowYM = "2022年1月"
+var TimeLayout = "2006-01-02 15:04:05"
 
 // CheckReciptColumnsRange レシートの挿入先チェック
 var CheckReciptColumnsRange = "!B7:B1500"
