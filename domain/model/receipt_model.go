@@ -2,7 +2,6 @@ package model
 
 // ReceiptModel レシート(単品の購入情報)のモデル
 type ReceiptModel struct {
-	ReceiptID   int
 	CategorieID int
 	Description string
 	Price       int

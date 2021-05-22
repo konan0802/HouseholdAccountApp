@@ -67,7 +67,6 @@ func (rp *ReceiptInfraSS) AddReceipt(arr model.AddReceiptRequest) (*model.Receip
 	}
 
 	return &model.ReceiptModel{
-		ReceiptID:   0,
 		CategorieID: config.CategorieNametoInt[arr.CategorieName],
 		Description: arr.Description,
 		Price:       arr.Price,

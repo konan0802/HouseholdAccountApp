@@ -15,14 +15,12 @@ func NewReceiptInfraMock() repository.ReceiptRepository {
 // GetMonthlyReceipts 対象年月のレシートを取得する
 func (rp *receiptInfraMock) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error) {
 	rm1 := model.ReceiptModel{
-		ReceiptID:   1,
 		CategorieID: 0,
 		Description: "コーヒー",
 		Price:       300,
 		Datetime:    "2006-01-02 15:04:05",
 	}
 	rm2 := model.ReceiptModel{
-		ReceiptID:   2,
 		CategorieID: 1,
 		Description: "椅子",
 		Price:       4000,
