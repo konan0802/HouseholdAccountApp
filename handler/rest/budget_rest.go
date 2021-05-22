@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -43,9 +44,15 @@ func (bh budgetHandler) GetMonthlybudget(w http.ResponseWriter, r *http.Request,
 	// （エラーの場合は0が代入される）
 	_ = r.ParseForm()
 	yearStr := r.Form.Get("year")
-	yearUint, _ := strconv.Atoi(yearStr)
+	yearUint, err := strconv.Atoi(yearStr)
+	if err != nil {
+		log.Fatal(err)
+	}
 	monthStr := r.Form.Get("month")
-	monthUint, _ := strconv.Atoi(monthStr)
+	monthUint, err := strconv.Atoi(monthStr)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// リクエストstructに埋め込み
 	mbr := model.MonthlyBudgetsRequest{

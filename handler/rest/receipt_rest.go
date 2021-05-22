@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -41,9 +42,15 @@ func (rh receiptHandler) GetMonthlyReceipts(w http.ResponseWriter, r *http.Reque
 	// （エラーの場合は0が代入される）
 	_ = r.ParseForm()
 	yearStr := r.Form.Get("year")
-	yearUint, _ := strconv.Atoi(yearStr)
+	yearUint, err := strconv.Atoi(yearStr)
+	if err != nil {
+		log.Fatal(err)
+	}
 	monthStr := r.Form.Get("month")
-	monthUint, _ := strconv.Atoi(monthStr)
+	monthUint, err := strconv.Atoi(monthStr)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// リクエストstructに埋め込み
 	mrr := model.MonthlyReceiptsRequest{
@@ -98,7 +105,10 @@ func (rh receiptHandler) Create(w http.ResponseWriter, r *http.Request, pr httpr
 	categorieName := r.Form.Get("categorie_name")
 	description := r.Form.Get("description")
 	priceStr := r.Form.Get("price")
-	priceUint32, _ := strconv.Atoi(priceStr)
+	priceUint32, err := strconv.Atoi(priceStr)
+	if err != nil {
+		log.Fatal(err)
+	}
 	datetime := r.Form.Get("datetime")
 
 	// リクエストstructに埋め込み

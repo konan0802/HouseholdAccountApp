@@ -32,12 +32,19 @@ var CategorieNametoInt = map[string]int{
 	"家具家電": 4,
 }
 
-// SheetName 対象月のシート名
-//var SheetName = strconv.Itoa(Now.Year()) + "年" + Now.Month().String() + "月"
-var SheetName = "2022年1月"
+// NowYM 対象月のシート名
+//var NowYM = strconv.Itoa(Now.Year()) + "年" + Now.Month().String() + "月"
+var NowYM = "2022年1月"
 
 // CheckReciptColumnsRange レシートの挿入先チェック
-var CheckReciptColumnsRange = SheetName + "!B7:B1500"
+var CheckReciptColumnsRange = "!B7:B1500"
+
+// レシートの開始・終了カラム
+var ReceiptStartCol = "B"
+var ReceiptEndCol = "E"
 
 // ReciptStartRow レシートの記載が始まる行
 var ReciptStartRow = 7
+
+// GetReciptRange 対象レシートの取得
+var GetReciptRange = "!B7:E1000"

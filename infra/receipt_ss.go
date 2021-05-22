@@ -23,40 +23,53 @@ func NewReceiptInfraSS(sheetService SpreadSheets) repository.ReceiptRepository {
 
 // GetMonthlyReceipts 対象年月の予算を取得する
 func (rp *ReceiptInfraSS) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest) ([]*model.ReceiptModel, error) {
-	rm1 := model.ReceiptModel{
-		ReceiptID:   1,
-		CategorieID: 0,
-		Description: "コーヒー",
-		Price:       300,
-		Datetime:    "2006-01-02 15:04:05",
+
+	// 取得範囲の作成
+	GetYM := strconv.Itoa(mrr.Year) + "年" + strconv.Itoa(mrr.Month) + "月"
+
+	// レシートの取得
+	resp, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, GetYM+config.GetReciptRange).Do()
+	if err != nil {
+		log.Fatal(err)
 	}
-	rm2 := model.ReceiptModel{
-		ReceiptID:   2,
-		CategorieID: 1,
-		Description: "椅子",
-		Price:       4000,
-		Datetime:    "2006-01-02 15:04:05",
+
+	var rms []*model.ReceiptModel
+	for _, eachReceipt := range resp.Values {
+		price, err := strconv.Atoi(eachReceipt[3].(string))
+		if err != nil {
+			log.Fatal(err)
+		}
+		rm := model.ReceiptModel{
+			CategorieID: config.CategorieNametoInt[eachReceipt[1].(string)],
+			Description: eachReceipt[2].(string),
+			Price:       price,
+			Datetime:    eachReceipt[0].(string),
+		}
+		rms = append(rms, &rm)
 	}
-	return []*model.ReceiptModel{&rm1, &rm2}, nil
+
+	return rms, nil
 }
 
 // AddReceipt レシートを追加する
 func (rp *ReceiptInfraSS) AddReceipt(arr model.AddReceiptRequest) (*model.ReceiptModel, error) {
 
-	// スプレッドシートにインサートする行
-	val, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, config.CheckReciptColumnsRange).Do()
+	// インサートする行を確認
+	val, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, config.NowYM+config.CheckReciptColumnsRange).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// インサート開始行の計算
 	start := len(val.Values)
 	startRow := strconv.Itoa(config.ReciptStartRow + start)
-	inputeRow := config.SheetName + "!B" + startRow + ":F" + startRow
+	inputeRow := config.NowYM + "!" + config.ReceiptStartCol + startRow + ":" + config.ReceiptEndCol + startRow
 
-	// スプレッドシートにインサートする値
+	// インサートする値
 	valueRange := &sheets.ValueRange{
 		MajorDimension: "ROWS",
 		Values: [][]interface{}{
-			[]interface{}{start, arr.Datetime, arr.CategorieName, arr.Description, arr.Price},
+			[]interface{}{arr.Datetime, arr.CategorieName, arr.Description, arr.Price},
 		},
 	}
 
@@ -72,13 +85,4 @@ func (rp *ReceiptInfraSS) AddReceipt(arr model.AddReceiptRequest) (*model.Receip
 		Price:       arr.Price,
 		Datetime:    arr.Datetime,
 	}, nil
-}
-
-// CheckReciptColumns レシートの挿入先チェック
-func (rp *ReceiptInfraSS) CheckReciptColumns() ([][]interface{}, error) {
-	resp, err := rp.SS.SheetService.Spreadsheets.Values.Get(rp.SS.SpreadsheetId, config.CheckReciptColumnsRange).Do()
-	if err != nil {
-		log.Fatal(err)
-	}
-	return resp.Values, nil
 }

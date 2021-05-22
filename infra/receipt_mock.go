@@ -32,7 +32,6 @@ func (rp *receiptInfraMock) GetMonthlyReceipts(mrr model.MonthlyReceiptsRequest)
 // AddReceipt レシートを追加する
 func (rp *receiptInfraMock) AddReceipt(mrr model.AddReceiptRequest) (*model.ReceiptModel, error) {
 	rm := model.ReceiptModel{
-		ReceiptID:   2,
 		CategorieID: 1,
 		Description: "椅子",
 		Price:       4000,
