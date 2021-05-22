@@ -19,6 +19,12 @@
 
 ## Directory structure
     ├── main.go
+    ├── app.yaml
+    ├── go.mod
+    ├── go.sum
+    ├── credential.json
+    ├── config
+    │   └── config.go
     ├── handler
     │   └── rest
     │       ├── budget_rest.go
